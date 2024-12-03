@@ -38,13 +38,13 @@ async function fetchData(url) {
 
 // Fonction pour récupérer les films par catégorie
 async function fetchMoviesByCategory(category, page = 1) {
-    const url = `${API_BASE_URL}/titles/?genre=${category}&sort_by=-imdb_score&page=${page}`;
+    const url = `${API_BASE_URL}/titles/?genre=${category}&sort_by=-votes,-imdb_score&page=${page}&page_size=10000`;
     return await fetchData(url);
 }
 
 // Fonction pour récupérer les meilleurs films
 async function fetchTopRatedMovies(page = 1) {
-    const url = `${API_BASE_URL}/titles/?sort_by=-imdb_score&page=${page}`;
+    const url = `${API_BASE_URL}/titles/?sort_by=-votes,-imdb_score&page=${page}&page_size=10000`;
     return await fetchData(url);
 }
 
@@ -56,29 +56,47 @@ async function fetchMovieDetails(movieId) {
 
 // Fonction pour récupérer toutes les catégories disponibles
 async function fetchCategories() {
-    const movies = await fetchData(`${API_BASE_URL}/titles/`);
-    if (!movies || !movies.results) return;
+    const url = `${API_BASE_URL}/genres/?page_size=30`;
+    const response = await fetchData(url);
+    
+    if (!response || !response.results) return;
 
-    const categories = new Set();
-    movies.results.forEach(movie => {
-        if (movie.genres) {
-            movie.genres.forEach(genre => categories.add(genre));
-        }
-    });
+    // Extraction des noms de genres
+    availableCategories = response.results
+        .map(genre => genre.name)
+        .sort();
 
-    availableCategories = Array.from(categories).sort();
     populateCategorySelect();
 }
 
 // Fonction pour peupler le sélecteur de catégories
 function populateCategorySelect() {
     categorySelect.innerHTML = '<option value="">Sélectionner une catégorie</option>';
-    availableCategories.forEach(category => {
+    
+    // On ajoute d'abord les catégories principales
+    const mainCategories = ['Action', 'Comedy'];
+    mainCategories.forEach(category => {
         const option = document.createElement('option');
         option.value = category;
         option.textContent = category;
         categorySelect.appendChild(option);
     });
+    
+    // On ajoute un séparateur
+    const separator = document.createElement('option');
+    separator.disabled = true;
+    separator.textContent = '──────────';
+    categorySelect.appendChild(separator);
+    
+    // On ajoute ensuite toutes les autres catégories
+    availableCategories
+        .filter(category => !mainCategories.includes(category))
+        .forEach(category => {
+            const option = document.createElement('option');
+            option.value = category;
+            option.textContent = category;
+            categorySelect.appendChild(option);
+        });
 }
 
 // Fonction pour créer une carte de film
@@ -127,6 +145,7 @@ async function showMovieDetails(movieId) {
     document.getElementById('modal-actors').textContent = `Acteurs: ${movie.actors.join(', ')}`;
     document.getElementById('modal-duration').textContent = `Durée: ${movie.duration} min`;
     document.getElementById('modal-countries').textContent = `Pays: ${movie.countries.join(', ')}`;
+    document.getElementById('modal-box-office').textContent = `Box Office: ${movie.worldwide_gross_income ? movie.worldwide_gross_income.toLocaleString() + ' $' : 'Non disponible'}`;
     document.getElementById('modal-description').textContent = `Description: ${movie.description}`;
 
     modal.style.display = "flex";
@@ -187,21 +206,14 @@ async function loadBestMovie() {
 // Fonction pour charger une catégorie de films
 async function loadMovieCategory(categoryId, category = '') {
     const container = document.getElementById(categoryId);
-    const movies = [];
-    let page = 1;
+    const data = category ? 
+        await fetchMoviesByCategory(category, 1) : 
+        await fetchTopRatedMovies(1);
     
-    while (movies.length < ITEMS_PER_PAGE) {
-        const data = category ? 
-            await fetchMoviesByCategory(category, page) : 
-            await fetchTopRatedMovies(page);
-        
-        if (!data || !data.results.length) break;
-        
-        movies.push(...data.results);
-        page++;
-    }
-
-    const uniqueMovies = movies.slice(0, ITEMS_PER_PAGE);
+    if (!data || !data.results.length) return;
+    
+    // On prend seulement les 6 premiers films (qui sont déjà triés par votes et score)
+    const uniqueMovies = data.results.slice(0, ITEMS_PER_PAGE);
     container.innerHTML = '';
     uniqueMovies.forEach((movie, index) => {
         const card = createMovieCard(movie);
