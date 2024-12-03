@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JustStreamIt</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">
+                <img src="images/Logo_JustStreamIt.png" alt="Logo JustStreamIt">
+            </div>
+            <ul class="nav-links">
+                <li><a href="#" class="active">Accueil</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <!-- Section Film le mieux noté -->
+        <section id="best-movie" class="hero-section">
+            <div class="best-movie-info">
+                <h1 id="best-movie-title"></h1>
+                <div class="movie-details">
+                    <p id="best-movie-score"></p>
+                    <p id="best-movie-date"></p>
+                    <p id="best-movie-rated"></p>
+                    <p id="best-movie-duration"></p>
+                    <p id="best-movie-genres"></p>
+                </div>
+                <p id="best-movie-description"></p>
+                <div class="movie-credits">
+                    <p id="best-movie-directors"></p>
+                    <p id="best-movie-actors"></p>
+                </div>
+                <div class="button-group">
+                    <button class="info-button">Plus d'informations</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section Films les mieux notés -->
+        <section class="movies-section">
+            <h2>Films les mieux notés</h2>
+            <div class="carousel">
+                <button class="carousel-button prev" data-carousel="top-rated">&#8249;</button>
+                <div class="movies-grid" id="top-rated-movies"></div>
+                <button class="carousel-button next" data-carousel="top-rated">&#8250;</button>
+            </div>
+            <button class="show-more-button">Voir plus</button>
+        </section>
+
+        <!-- Catégorie Action -->
+        <section class="movies-section">
+            <h2>Action</h2>
+            <div class="carousel">
+                <button class="carousel-button prev" data-carousel="action">&#8249;</button>
+                <div class="movies-grid" id="action-movies"></div>
+                <button class="carousel-button next" data-carousel="action">&#8250;</button>
+            </div>
+            <button class="show-more-button">Voir plus</button>
+        </section>
+
+        <!-- Catégorie Comédie -->
+        <section class="movies-section">
+            <h2>Comédie</h2>
+            <div class="carousel">
+                <button class="carousel-button prev" data-carousel="comedy">&#8249;</button>
+                <div class="movies-grid" id="comedy-movies"></div>
+                <button class="carousel-button next" data-carousel="comedy">&#8250;</button>
+            </div>
+            <button class="show-more-button">Voir plus</button>
+        </section>
+
+        <!-- Catégorie Libre -->
+        <section class="movies-section">
+            <div class="category-selector">
+                <h2>Autres Catégories</h2>
+                <select id="category-select" class="custom-select">
+                    <option value="">Sélectionner une catégorie</option>
+                </select>
+            </div>
+            <div class="carousel">
+                <button class="carousel-button prev" data-carousel="free">&#8249;</button>
+                <div class="movies-grid" id="free-category-movies"></div>
+                <button class="carousel-button next" data-carousel="free">&#8250;</button>
+            </div>
+            <button class="show-more-button">Voir plus</button>
+        </section>
+    </main>
+
+    <!-- Modal pour les détails du film -->
+    <div id="movie-modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <div class="modal-body">
+                <div class="modal-image">
+                    <img id="modal-image" src="" alt="">
+                </div>
+                <div class="modal-info">
+                    <h2 id="modal-title"></h2>
+                    <p id="modal-genre"></p>
+                    <p id="modal-date"></p>
+                    <p id="modal-rated"></p>
+                    <p id="modal-imdb-score"></p>
+                    <p id="modal-directors"></p>
+                    <p id="modal-actors"></p>
+                    <p id="modal-duration"></p>
+                    <p id="modal-countries"></p>
+                    <p id="modal-description"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html> 
