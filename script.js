@@ -73,24 +73,9 @@ async function fetchCategories() {
 function populateCategorySelect() {
     categorySelect.innerHTML = '<option value="">Sélectionner une catégorie</option>';
     
-    // On ajoute d'abord les catégories principales
-    const mainCategories = ['Action', 'Comedy'];
-    mainCategories.forEach(category => {
-        const option = document.createElement('option');
-        option.value = category;
-        option.textContent = category;
-        categorySelect.appendChild(option);
-    });
-    
-    // On ajoute un séparateur
-    const separator = document.createElement('option');
-    separator.disabled = true;
-    separator.textContent = '──────────';
-    categorySelect.appendChild(separator);
-    
-    // On ajoute ensuite toutes les autres catégories
+    // On ajoute toutes les catégories sauf Action et Comedy
     availableCategories
-        .filter(category => !mainCategories.includes(category))
+        .filter(category => !['Action', 'Comedy'].includes(category))
         .forEach(category => {
             const option = document.createElement('option');
             option.value = category;
@@ -177,20 +162,7 @@ async function loadBestMovie() {
     
     info.innerHTML = `
         <h1>${movieDetails.title}</h1>
-        <div class="movie-details">
-            <p class="score">Score IMDb : ${movieDetails.imdb_score}/10</p>
-            <p class="date">Sortie : ${movieDetails.date_published.split('-')[0]}</p>
-            <p class="duration">Durée : ${movieDetails.duration} min</p>
-            <p class="rated">Rated : ${movieDetails.rated}</p>
-        </div>
-        <div class="movie-genres">
-            <p>Genres : ${movieDetails.genres.join(', ')}</p>
-        </div>
         <p class="movie-description">${movieDetails.description}</p>
-        <div class="movie-credits">
-            <p>Réalisateur${movieDetails.directors.length > 1 ? 's' : ''} : ${movieDetails.directors.join(', ')}</p>
-            <p>Acteurs principaux : ${movieDetails.actors.slice(0, 3).join(', ')}</p>
-        </div>
         <button class="info-button">Plus d'informations</button>
     `;
     
