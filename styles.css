@@ -1,4 +1,6 @@
-/* Variables globales */
+/* ==========================================================================
+   1. Variables et configuration globale
+   ========================================================================== */
 :root {
     --primary-color: #FFFFFF;
     --secondary-color: #D80000;
@@ -9,7 +11,9 @@
     --modal-background: rgba(0, 0, 0, 0.8);
 }
 
-/* Reset et styles de base */
+/* ==========================================================================
+   2. Reset et styles de base
+   ========================================================================== */
 * {
     margin: 0;
     padding: 0;
@@ -23,21 +27,26 @@ body {
 }
 
 main {
-    padding-top: 120px;
+    padding-top: 170px;
 }
 
-/* Header et Navigation */
+/* ==========================================================================
+   3. Header et Navigation
+   ========================================================================== */
 header {
     background-color: var(--primary-color);
-    padding: 2rem 4%;
-    max-width: 1800px;
-    margin: 0 auto;
     position: fixed;
     width: 100%;
     top: 0;
     left: 0;
     z-index: 1000;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.header-content {
+    max-width: 1800px;
+    margin: 0 auto;
+    padding: 2rem 4%;
 }
 
 nav {
@@ -79,7 +88,9 @@ nav {
     font-weight: 500;
 }
 
-/* Section meilleur film */
+/* ==========================================================================
+   4. Section meilleur film
+   ========================================================================== */
 .hero-section {
     padding: 2rem;
     margin-bottom: 2rem;
@@ -114,71 +125,20 @@ nav {
 
 .best-movie-info h1 {
     font-size: 2.5rem;
-    color: #000000;
+    color: var(--text-color);
     margin: 0;
 }
 
 .movie-description {
     font-size: 1.1rem;
     line-height: 1.6;
-    color: #000000;
+    color: var(--text-color);
     margin: 0;
 }
 
-.info-button {
-    align-self: flex-start;
-    padding: 0.8rem 1.5rem;
-    background-color: #e50914;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-    font-size: 1rem;
-}
-
-.info-button:hover {
-    background-color: #f40612;
-}
-
-/* Responsive design */
-@media (max-width: 768px) {
-    .best-movie-container {
-        flex-direction: column;
-        text-align: center;
-        padding: 1rem;
-        margin-top: 2rem;
-    }
-
-    .best-movie-image {
-        width: 100%;
-        max-width: 300px;
-        height: auto;
-    }
-
-    .best-movie-info {
-        align-items: center;
-    }
-
-    .info-button {
-        align-self: center;
-    }
-
-    .site-title {
-        display: none;
-    }
-
-    nav {
-        justify-content: center;
-    }
-
-    .logo {
-        position: static;
-        transform: none;
-    }
-}
-
-/* Sections de films */
+/* ==========================================================================
+   5. Sections de films
+   ========================================================================== */
 .movies-section {
     padding: 0 4%;
     max-width: 1800px;
@@ -198,6 +158,9 @@ nav {
     margin: 0 auto;
 }
 
+/* ==========================================================================
+   6. Cartes de films
+   ========================================================================== */
 .movie-card {
     position: relative;
     aspect-ratio: 1/1;
@@ -230,14 +193,16 @@ nav {
     margin: 0;
 }
 
-/* Modal */
+/* ==========================================================================
+   7. Modal
+   ========================================================================== */
 .modal {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.8);
+    background-color: var(--modal-background);
     z-index: 1001;
     display: none;
     align-items: center;
@@ -311,7 +276,25 @@ nav {
     line-height: 1.6;
 }
 
-/* Bouton Voir plus */
+/* ==========================================================================
+   8. Boutons
+   ========================================================================== */
+.info-button {
+    align-self: flex-start;
+    padding: 0.8rem 1.5rem;
+    background-color: #e50914;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    font-size: 1rem;
+}
+
+.info-button:hover {
+    background-color: #f40612;
+}
+
 .show-more-button {
     display: none;
     margin: 20px auto;
@@ -329,241 +312,9 @@ nav {
     background-color: var(--button-hover);
 }
 
-/* Responsive */
-@media (max-width: 1024px) {
-    .movies-grid {
-        grid-template-columns: repeat(2, 1fr);
-        grid-template-rows: repeat(2, 1fr);
-        gap: 15px;
-    }
-
-    .movie-card:nth-child(n+5) {
-        display: none;
-    }
-
-    .movie-card.show-more {
-        display: block;
-    }
-
-    .show-more-button {
-        display: block;
-    }
-
-    .modal-content {
-        width: 95%;
-        max-width: 700px;
-    }
-}
-
-@media (max-width: 768px) {
-    .modal-body {
-        grid-template-columns: 1fr;
-        gap: 20px;
-        padding: 20px;
-    }
-
-    .modal-image {
-        max-width: 300px;
-        margin: 0 auto;
-    }
-}
-
-@media (max-width: 480px) {
-    .movies-grid {
-        grid-template-columns: 1fr;
-        gap: 15px;
-    }
-
-    .movie-card:nth-child(n+3) {
-        display: none;
-    }
-
-    .movie-card.show-more {
-        display: block;
-    }
-
-    .modal-content {
-        width: 100%;
-        height: 100%;
-        border-radius: 0;
-        overflow-y: auto;
-    }
-
-    .modal-body {
-        padding: 15px;
-    }
-
-    .modal-image {
-        max-width: 100%;
-    }
-}
-
-/* Modal */
-.modal {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.8);
-    z-index: 1001;
-    display: none;
-    align-items: center;
-    justify-content: center;
-}
-
-.modal.show {
-    display: flex;
-}
-
-.modal-content {
-    background-color: var(--primary-color);
-    width: 90%;
-    max-width: 800px;
-    position: relative;
-    border: 2px solid black;
-    border-radius: 10px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-}
-
-.modal-body {
-    display: grid;
-    grid-template-columns: 1fr 2fr;
-    gap: 30px;
-    padding: 30px;
-}
-
-.modal-image {
-    border-radius: 8px;
-    overflow: hidden;
-    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
-    align-self: flex-start;
-}
-
-.modal-image img {
-    width: 100%;
-    display: block;
-    aspect-ratio: 2/3;
-    object-fit: cover;
-}
-
-/* Responsive */
-@media (max-width: 768px) {
-    .modal-body {
-        grid-template-columns: 1fr;
-        gap: 20px;
-        padding: 20px;
-    }
-
-    .modal-image {
-        max-width: 300px;
-        margin: 0 auto;
-    }
-}
-
-@media (max-width: 480px) {
-    .modal-content {
-        width: 100%;
-        height: 100%;
-        border-radius: 0;
-        overflow-y: auto;
-    }
-
-    .modal-body {
-        display: flex;
-        flex-direction: column;
-        padding: 15px;
-    }
-
-    .modal-image {
-        max-width: 200px;
-        margin: 0 auto 20px;
-    }
-
-    .modal-info {
-        width: 100%;
-    }
-
-    .modal-info h2 {
-        font-size: 20px;
-        text-align: center;
-    }
-}
-
-/* Responsive pour le meilleur film */
-@media (max-width: 768px) {
-    .best-movie-container {
-        flex-direction: column;
-        max-width: 600px;
-        margin: 20px;
-        margin-top: 2rem;
-    }
-
-    .best-movie-image {
-        width: 100%;
-        height: 300px;
-    }
-
-    .best-movie-info {
-        padding: 20px;
-    }
-
-    .movie-details {
-        grid-template-columns: 1fr;
-    }
-}
-
-@media (max-width: 480px) {
-    .best-movie-container {
-        margin: 10px;
-        margin-top: 2rem;
-    }
-
-    .best-movie-image {
-        width: 100%;
-        height: 300px;
-        object-fit: cover;
-        object-position: center 20%;
-    }
-
-    .best-movie-info {
-        padding: 15px;
-    }
-
-    .best-movie-info h1 {
-        font-size: 22px;
-        text-align: center;
-    }
-
-    .movie-details {
-        grid-template-columns: 1fr;
-    }
-
-    .movie-details p {
-        text-align: center;
-    }
-
-    .movie-genres {
-        text-align: center;
-    }
-
-    .movie-description {
-        font-size: 13px;
-        text-align: justify;
-    }
-
-    .movie-credits {
-        text-align: center;
-        font-size: 13px;
-    }
-
-    .info-button {
-        display: block;
-        margin: 0 auto;
-    }
-}
-
-/* Catégorie sélection */
+/* ==========================================================================
+   9. Sélecteur de catégorie
+   ========================================================================== */
 .category-selector {
     display: flex;
     align-items: center;
@@ -600,28 +351,9 @@ nav {
     padding: 10px;
 }
 
-/* Responsive pour le sélecteur de catégorie */
-@media (max-width: 768px) {
-    .category-selector {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 10px;
-    }
-
-    #category-select {
-        width: 100%;
-        max-width: none;
-    }
-}
-
-/* Ajustement pour le responsive */
-@media (max-width: 768px) {
-    main {
-        padding-top: 150px;
-    }
-}
-
-/* Footer */
+/* ==========================================================================
+   10. Footer
+   ========================================================================== */
 footer {
     background-color: var(--primary-color);
     padding: 1rem 4%;
@@ -635,8 +367,83 @@ footer p {
     font-size: 14px;
 }
 
-/* Ajustement pour le responsive */
+/* ==========================================================================
+   11. Media Queries
+   ========================================================================== */
+/* Tablettes et petits écrans */
+@media (max-width: 1024px) {
+    .movies-grid {
+        grid-template-columns: repeat(2, 1fr);
+        grid-template-rows: repeat(2, 1fr);
+        gap: 15px;
+    }
+
+    .movie-card:nth-child(n+5) {
+        display: none;
+    }
+
+    .movie-card.show-more {
+        display: block;
+    }
+
+    .show-more-button {
+        display: block;
+    }
+
+    .modal-content {
+        width: 95%;
+        max-width: 700px;
+    }
+}
+
+/* Mobiles */
 @media (max-width: 768px) {
+    main {
+        padding-top: 150px;
+    }
+
+    .site-title {
+        display: none;
+    }
+
+    nav {
+        justify-content: center;
+    }
+
+    .logo {
+        position: static;
+        transform: none;
+    }
+
+    .best-movie-container {
+        flex-direction: column;
+        text-align: center;
+        padding: 1rem;
+        margin-top: 2rem;
+    }
+
+    .modal-body {
+        grid-template-columns: 1fr;
+        gap: 20px;
+        padding: 20px;
+    }
+
+    .modal-image {
+        max-width: 300px;
+        margin: 0 auto;
+    }
+
+    .category-selector {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+
+    #category-select {
+        width: 100%;
+        max-width: none;
+    }
+
     footer {
         padding: 0.8rem 4%;
     }
@@ -645,3 +452,70 @@ footer p {
         font-size: 12px;
     }
 }
+
+/* Petits mobiles */
+@media (max-width: 480px) {
+    .movies-grid {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+
+    .movie-card:nth-child(n+3) {
+        display: none;
+    }
+
+    .modal-content {
+        width: 100%;
+        height: 100%;
+        border-radius: 0;
+        overflow-y: auto;
+    }
+
+    .modal-body {
+        display: flex;
+        flex-direction: column;
+        padding: 15px;
+    }
+
+    .modal-image {
+        max-width: 200px;
+        margin: 0 auto 20px;
+    }
+
+    .modal-info {
+        width: 100%;
+    }
+
+    .modal-info h2 {
+        font-size: 20px;
+        text-align: center;
+    }
+
+    .best-movie-container {
+        margin: 10px;
+        margin-top: 2rem;
+    }
+
+    .best-movie-image {
+        width: 100%;
+        height: 300px;
+        object-fit: cover;
+        object-position: center 20%;
+    }
+
+    .best-movie-info {
+        padding: 15px;
+    }
+
+    .best-movie-info h1 {
+        font-size: 22px;
+        text-align: center;
+    }
+
+    .movie-description {
+        font-size: 13px;
+        text-align: justify;
+    }
+}
+
+

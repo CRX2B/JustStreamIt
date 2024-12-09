@@ -6,7 +6,6 @@ const DEFAULT_IMAGE = 'images/Image_Non_Dispo.jpg';
 // Sélecteurs DOM
 const modal = document.getElementById('movie-modal');
 const closeBtn = document.querySelector('.close');
-const carouselButtons = document.querySelectorAll('.carousel-button');
 const categorySelect = document.getElementById('category-select');
 const showMoreButtons = document.querySelectorAll('.show-more-button');
 
@@ -38,13 +37,13 @@ async function fetchData(url) {
 
 // Fonction pour récupérer les films par catégorie
 async function fetchMoviesByCategory(category, page = 1) {
-    const url = `${API_BASE_URL}/titles/?genre=${category}&sort_by=-votes,-imdb_score&page=${page}&page_size=10000`;
+    const url = `${API_BASE_URL}/titles/?genre=${category}&sort_by=-votes,-imdb_score&page=${page}&page_size=5000`;
     return await fetchData(url);
 }
 
 // Fonction pour récupérer les meilleurs films
 async function fetchTopRatedMovies(page = 1) {
-    const url = `${API_BASE_URL}/titles/?sort_by=-votes,-imdb_score&page=${page}&page_size=10000`;
+    const url = `${API_BASE_URL}/titles/?sort_by=-votes,-imdb_score&page=${page}&page_size=5000`;
     return await fetchData(url);
 }
 
@@ -202,17 +201,6 @@ async function loadMovieCategory(categoryId, category = '') {
     hiddenMoviesVisible[categoryId] = false;
 }
 
-// Gestion des boutons du carousel
-carouselButtons.forEach(button => {
-    button.addEventListener('click', () => {
-        const direction = button.classList.contains('prev') ? -1 : 1;
-        const carousel = button.parentElement;
-        const grid = carousel.querySelector('.movies-grid');
-        const cardWidth = grid.querySelector('.movie-card').offsetWidth + 8; // 8 pour le gap
-        grid.scrollLeft += cardWidth * direction * 4;
-    });
-});
-
 // Gestion du bouton "Voir plus"
 showMoreButtons.forEach(button => {
     button.addEventListener('click', () => {
@@ -223,24 +211,24 @@ showMoreButtons.forEach(button => {
         
         let hiddenMovies;
         if (isMobile) {
-            // Sur mobile, on montre tous les films à partir du 3ème
             hiddenMovies = moviesGrid.querySelectorAll('.movie-card:nth-child(n+3)');
         } else if (isTablet) {
-            // Sur tablette, on montre la deuxième rangée (films 5-8)
             hiddenMovies = moviesGrid.querySelectorAll('.movie-card:nth-child(n+5)');
+        } else {
+            hiddenMovies = moviesGrid.querySelectorAll('.movie-card:nth-child(n+7)');
         }
         
         const isShowing = button.textContent === 'Voir plus';
-        
-        if (hiddenMovies) {
-            hiddenMovies.forEach(movie => {
-                if (isShowing) {
-                    movie.classList.add('show-more');
-                } else {
-                    movie.classList.remove('show-more');
-                }
-            });
-        }
+        hiddenMovies.forEach(movie => {
+            movie.style.display = isShowing ? 'block' : 'none';
+            if (isShowing) {
+                movie.classList.add('show-more');
+                movie.classList.remove('hidden');
+            } else {
+                movie.classList.remove('show-more');
+                movie.classList.add('hidden');
+            }
+        });
         
         button.textContent = isShowing ? 'Voir moins' : 'Voir plus';
     });
